@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*!
+ * Start Bootstrap - Full HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+
+/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
+
+.full {
+    background: url('/admin/theme/img/bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.loginf{
+	margin-top:15%;
+	margin-bottom:25%;
+
+	width:25%;
+	min-width:300px;
+
+}

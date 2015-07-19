@@ -1,0 +1,111 @@
+/*-----------------------------------------------------------------------------
+
+KENBURNER RESPONSIVE BASIC STYLES OF HTML DOCUMENT
+
+Screen Stylesheet
+
+version:   	1.0
+date:      	07/27/11
+author:		themepunch
+email:     	support@themepunch.com
+website:   	http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+  /*********************************************************************************************
+		-	SET THE SCREEN SIZES FOR THE BANNER IF YOU WISH TO MAKE THE BANNER RESOPONSIVE 	-
+  **********************************************************************************************/
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic&subset=latin,greek-ext,cyrillic,latin-ext,vietnamese,devanagari,greek,cyrillic-ext);
+  /*	-	THE BANNER CONTAINER (Padding, Shadow, Border etc. )	-	*/
+  .bannercontainer {
+		background-color:#fff;
+		width:960px;
+		position:relative;
+		position:relative;
+		margin-left:auto;
+		margin-right:auto;
+			font-family: 'Noto Sans', sans-serif;
+
+	}
+
+  .banner{
+		width:960px;
+		height:500px;
+		position:relative;
+		overflow:hidden;
+			font-family: 'Noto Sans', sans-serif;
+   }
+
+
+    .bannercontainer-simple {
+		padding:0px;
+		background-color:#fff;
+		width:960px;
+		position:relative;
+		position:relative;
+		margin-left:auto;
+		margin-right:auto;
+			font-family: 'Noto Sans', sans-serif;
+
+	}
+
+  .banner-simple{
+		width:960px;
+		height:500px;
+		position:relative;
+		overflow:hidden;
+		font-family: 'Noto Sans', sans-serif;
+   }
+
+ .fullwidthbanner-container{
+	width:100% !important;
+	position:relative;
+	padding:0;
+	overflow:hidden;
+		font-family: 'Noto Sans', sans-serif;
+}
+
+.fullwidthbanner-container .fullwidthabnner	{
+	width:100% !important;
+	max-height:500px !important;
+	position:relative;
+		font-family: 'Noto Sans', sans-serif;
+}
+.caption{
+font-family: 'Noto Sans', sans-serif;
+}
+
+   @media only screen and (min-width: 768px) and (max-width: 959px) {
+
+ 		  .banner, .bannercontainer			{	width:760px; height:396px;font-family: 'Noto Sans', sans-serif;}
+
+
+
+
+   }
+
+   @media only screen and (min-width: 480px) and (max-width: 767px) {
+		   .banner, .bannercontainer		{	width:480px; height:250px;	font-family: 'Noto Sans', sans-serif;}
+
+
+
+
+   }
+
+   @media only screen and (min-width: 0px) and (max-width: 479px) {
+			.banner, .bannercontainer		{	width:320px;height:167px;font-family: 'Noto Sans', sans-serif;	}
+
+
+
+
+   }
+
+  
+
+
+
+
+
