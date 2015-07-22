@@ -16,7 +16,6 @@
 	height:100%;
 	width:100%;;
 }
-
 .nav-tabs li a{
 	padding-left:80px;
 	padding-right:80px;
@@ -190,75 +189,38 @@ if(!$img&&$selectors==0){ ?>
       </div>
       
         <div role="tabpanel" class="tab-pane" id="profile">
-             <table  class="table table-bordered">
-           </tr>  
-            </td>
-        <td align="left">
-        <div class="col-sm-4" align="center">
-        <label class="control-label col-sx-0" for="listType">Size</label>
-      <select class="form-control" id="sizeId" >
-      <option value="0">กรุณาเลือก Size</option>
-             <?php	foreach($size as $d){?>
-        	<option  value="<?php echo $d['sizeId']?>"><?php echo $d['size']?></option>
-       		<?php } ?>
-        </select>
         <br>
-       <label class="control-label col-sx-0" for="colorId">สี</label>
-      <select class="form-control" id="colorId">
-      <option value="0">กรุณาเลือกSizeก่อน</option>
-        </select>
- 	  </div>
-        <div class="col-sm-3" align="center">
-        <div class="cal"  style="display:none">
-            <label class="control-label col-sx-0" for="valueNum">จำนวน</label>
-            <input class="form-control"  type="number" id="valueNum" value="1" style="text-align:right;width:160px;"/>
-            <input class="form-control" type="hidden" id="productId" value="<?php echo $titledetial[0]['productId'];?>"/>
-            </div>
-          <br>
-           <button type="button" class="btn btn-primary cal" id="confBay"  style="display:none">สั่งซื้อ</button>&nbsp;&nbsp;
-	</div>
-    
-    <div class="cal col-sm-5"  id="imgShowReview" align="center" style="min-width:150px;min-height:150px;float:left; ">
-    	    
+<table class="table table-bordered col-md-12">
+
+  	<tr>
+    	<td align="center">
+      <form class="form-horizontal" method="post" action="<?php echo  base_url() ?>index.php/site/VerifiedAcco">
+        <br>
+            <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">อีเมล</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
     </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">รหัสผ่าน</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+    </div>
+  </div>
 
-        </td>
-   	</tr>
-</table>
- 
-<hr>
-<table class="table table-bordered">
-	<?php foreach($titledetial as $td){?>
-    <tr>
-    	<th align="right" class="col-md-2">ชื่อสินค้า</th>
-    	<td align="left"><?php echo $td['productName'];?></td>
-
-    </tr>
-     <tr>
-    	<th align="right">ประเภท</th>
-    	<td align="left"><?php echo $td['typeName'];?></td>
-
-    </tr>
-    <tr>
-    	<th align="right" >ราคา</th>
-    	<td align="left"><?php echo $td['productPrice'];?>&nbsp; บาท</td>
-
-    </tr>
-    <tr>
-    	<th align="right">รายละเอียดอื่นๆ</th>
-    	<td align="left"><?php echo $td['productDetial'];?></td>
-
-    </tr>
+			    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary outline" > Sign in</button>
    
-    <?php }?>
-</table>
+    </div>
+      </form>
 
-</div>
-
-      
+</td>
+</tr>
+     </table> 
 
       </div>
-         
+        
      <div class="modal-footer">
           <button type="button" class="btn btn-default" id="confBayClose" data-dismiss="modal">ปิด</button>
       </div>
@@ -271,7 +233,7 @@ if(!$img&&$selectors==0){ ?>
 $("#sizeId").change(function(e) {
     e.preventDefault();
 	if($(this).val()!="0"){
-	 $.post("/index.php/user/getColorProduct", {sizeId:$(this).val()}) //Serialize looks good name=textInNameInput&&telefon=textInPhoneInput---etc
+	 $.post("/index.php/site/getColorProduct", {sizeId:$(this).val()}) //Serialize looks good name=textInNameInput&&telefon=textInPhoneInput---etc
         .done(function(data) {
 
          			$("#colorId").html(data);
@@ -288,7 +250,7 @@ $("#colorId").change(function(e) {
 if($("#sizeId").val()!="0"){
 	if($(this).val()!="กรุณาเลือกสี"){
 					
-						$("#imgShowReview").load("<?php echo base_url();?>index.php/user/getimageColor/"+$(this).val());
+						$("#imgShowReview").load("<?php echo base_url();?>index.php/site/getimageColor/"+$(this).val());
 						$("#imgShowReview").fadeIn("slow").addClass("loadercontent");
 						setTimeout(function(){
 					
@@ -307,10 +269,10 @@ if($("#sizeId").val()!="0"){
 });
 $("#confBay").click(function(e) {
 
-  $.post("/index.php/user/buyItem", {sizeId:$("#sizeId").val(),colorId:$("#colorId").val(),valueNum:$("#valueNum").val(),productId:$("#productId").val()}) //Serialize looks good name=textInNameInput&&telefon=textInPhoneInput---etc
+  $.post("/index.php/site/buyItem", {sizeId:$("#sizeId").val(),colorId:$("#colorId").val(),valueNum:$("#valueNum").val(),productId:$("#productId").val()}) //Serialize looks good name=textInNameInput&&telefon=textInPhoneInput---etc
         .done(function(data) {
 
-         		$.get( "<?php echo base_url();?>index.php/user/countBuyitem", function( data ) {
+         		$.get( "<?php echo base_url();?>index.php/site/countBuyitem", function( data ) {
 					  $("#notti").html( data );
 					  $("#notti").fadeIn("slow");
 				});

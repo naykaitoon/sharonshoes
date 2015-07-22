@@ -2,7 +2,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h2 class="page-header">
-                            Manage Pay<small> (จัดการการชำระเงิน)</small>
+                           <i class="fa fa-credit-card"></i> Manage Pay<small> (จัดการการชำระเงิน)</small>
                         </h2>
                     </div>
                 </div>

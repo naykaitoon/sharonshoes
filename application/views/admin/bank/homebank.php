@@ -2,7 +2,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h2 class="page-header">
-                             Manage BankAccount<small> (จัดการการบัญชีธนาคาร)</small>
+                            <i class="fa fa-clipboard"></i> Manage BankAccount<small> (จัดการการบัญชีธนาคาร)</small>
                         </h2>
                     </div>
                 </div>

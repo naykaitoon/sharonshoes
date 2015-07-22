@@ -21,7 +21,7 @@
 								 foreach($paypass as $p){ ?>
                                     <tr>
                                         <td align="center" valign="middle" nowrap="nowrap" class="col-md-1">OR<?php echo $p['orderId']?></td>
-                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>E-mail : <?php echo $p['emailRegister']?></td>
+                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>E-mail : <?php echo $p['mail']?></td>
                                         <td align="left" valign="middle" nowrap="nowrap" class="col-md-1"><?php 
 										$date = new DateTime($p['date']." ".$p['time']);
 										echo "วันที่ : ".$date->format('d/m/').($date->format('Y')+543). "<br>เวลา : ".$date->format('H:i');

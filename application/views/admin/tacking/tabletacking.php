@@ -17,7 +17,7 @@
 								  foreach($sending as $p){   ?>
                                     <tr>
                                         <td align="center" valign="middle" nowrap="nowrap" class="col-md-1">OR<?php echo $p['orderId']?></td>
-                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>e-mail : <?php echo $p['emailRegister']?></td>
+                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>e-mail : <?php echo $p['mail']?></td>
                                         <td align="left" valign="middle" nowrap="nowrap">CODE : <?php echo $p['tackCode']?><br>
 										<?php $date1 = new DateTime($p['dateTack']." ".$p['timeTack']);
 										echo "วันที่ส่ง : ".$date1->format('d/m/').($date1->format('Y')+543). "<br>เวลาที่ส่ง : ".$date1->format('H:i'); ?></td>
@@ -65,7 +65,7 @@
 								  foreach($sented as $p){   ?>
                                     <tr>
                                         <td align="center" valign="middle" nowrap="nowrap" class="col-md-1">OR<?php echo $p['orderId']?></td>
-                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>e-mail : <?php echo $p['emailRegister']?></td>
+                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>e-mail : <?php echo $p['mail']?></td>
                                         <td align="left" valign="middle" nowrap="nowrap">CODE : <?php echo $p['tackCode']?><br>
 										<?php $date1 = new DateTime($p['dateTack']." ".$p['timeTack']);
 										echo "วันที่ส่ง : ".$date1->format('d/m/').($date1->format('Y')+543). "<br>เวลาที่ส่ง : ".$date1->format('H:i'); ?></td>

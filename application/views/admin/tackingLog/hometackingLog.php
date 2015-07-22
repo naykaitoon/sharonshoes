@@ -2,7 +2,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h2 class="page-header">
-                            Tacking Log<small> (รายการ Tacking ทั้งหมด)</small>
+                           <i class="fa fa-fw fa-truck"></i> Tacking Log<small> (รายการ Tacking ทั้งหมด)</small>
                         </h2>
                     </div>
                 </div>

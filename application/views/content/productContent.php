@@ -1,9 +1,3 @@
-
-		<!-- PORTFOLIO -->
-		<section id="portfolio" class="module">
-
-			<div class="container" id="loadinfo">
-
 				<!-- FILTER -->
 				<div class="row">
 
@@ -26,8 +20,8 @@
 				<div class="row">
 
 					<div id="works-grid" class="works-grid works-hover-w">
-
-						<!-- DO NOT DELETE THIS DIV -->
+        
+        				<!-- DO NOT DELETE THIS DIV -->
 						<div class="grid-sizer"></div>
 
 					<?php foreach($products as $p){
@@ -52,23 +46,3 @@
 						<!-- /PORTFOLIO ITEM -->
 
 					</div>
-
-				</div>
-				<!-- /WORKS GRID -->
-
-				<!-- SHOW MORE -->
-				<!--<div class="row m-t-70 text-center wow fadeInUp">
-					<div class="col-sm-12">
-
-						<button id="show-more" class="btn btn-block btn-lg btn-g show-more">More works</button>
-
-					</div>
-				</div> -->
-				<!-- /SHOW MORE -->
-
-			</div>
-
-		</section>
-		<!-- /PORTFOLIO -->
-
-	

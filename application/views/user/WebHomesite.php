@@ -38,7 +38,7 @@
 							}
 							?>
                         <div class="work-item  <?php echo $view;?> <?php echo $p['typeName'];?>">
-							<a href="<?php echo base_url();?>index.php/site/getDetialProduct/<?php echo $p['productId']?>" class="showView" data-toggle="modal" data-target="#detial">
+							<a href="<?php echo base_url();?>index.php/user/getDetialProduct/<?php echo $p['productId']?>" class="showView" data-toggle="modal" data-target="#detial">
 								<img src="data:image/png;base64,<?php echo $p['imgBase64']?>" alt="<?php echo $p['productName']?>">
 								<div class="work-caption font-alt">
 									<h3 class="work-title"><?php echo $p['productName']?></h3>

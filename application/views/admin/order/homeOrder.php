@@ -2,7 +2,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h2 class="page-header">
-                            Manage Order<small> (จัดการสั่งสินค้า)</small>
+                          <i class="fa fa-bars"></i>  Manage Order<small> (จัดการสั่งสินค้า)</small>
                         </h2>
                     </div>
                 </div>

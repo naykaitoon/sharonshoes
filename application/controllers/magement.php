@@ -130,7 +130,7 @@ class Magement extends CI_Controller {
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 		$this->email->from('sharonsh@sharonshoes.com', 'owner');
-        $this->email->to($dataget[0]['emailRegister']); 
+        $this->email->to($dataget[0]['mail']); 
 
         $this->email->subject("รายการสั่งสินค้าของคุณ - sharonshoes.com");
 		
@@ -172,7 +172,7 @@ class Magement extends CI_Controller {
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 		$this->email->from('sharonsh@sharonshoes.com', 'owner');
-        $this->email->to($dataget[0]['emailRegister']); 
+        $this->email->to($dataget[0]['mail']); 
 
         $this->email->subject("รายการสั่งสินค้าของคุณ - sharonshoes.com");
 		
@@ -476,7 +476,7 @@ class Magement extends CI_Controller {
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 		$this->email->from('sharonsh@sharonshoes.com', 'owner');
-        $this->email->to($dataget[0]['emailRegister']); 
+        $this->email->to($dataget[0]['mail']); 
 
         $this->email->subject("รายการสั่งสินค้าของคุณ - sharonshoes.com");
 		

@@ -17,6 +17,7 @@ class Adminm extends CI_Model {
 	function getAllOrder($status){
 
 		$this->db->join('tb_facebookdetial','tb_facebookdetial.facebookdetialId = tb_order.facebookdetialId');
+		$this->db->join('tb_maillistlog','tb_maillistlog.mailId = tb_facebookdetial.mailId');
 		foreach($status as $s){
 			$this->db->or_where('tb_order.orderStatus',$s);
 		}
@@ -27,6 +28,7 @@ class Adminm extends CI_Model {
 	function getAllOrderPay($status){
 
 		$this->db->join('tb_facebookdetial','tb_facebookdetial.facebookdetialId = tb_order.facebookdetialId');
+		$this->db->join('tb_maillistlog','tb_maillistlog.mailId = tb_facebookdetial.mailId');
 		foreach($status as $s){
 			$this->db->or_where('tb_order.orderStatus',$s);
 		}
@@ -35,6 +37,7 @@ class Adminm extends CI_Model {
 	}
 	function getAllOrderPayAddTacking($status){
 		$this->db->join('tb_facebookdetial','tb_facebookdetial.facebookdetialId = tb_order.facebookdetialId');
+		$this->db->join('tb_maillistlog','tb_maillistlog.mailId = tb_facebookdetial.mailId');
 		$this->db->join('tb_tacking','tb_tacking.orderId = tb_order.orderId');
 		foreach($status as $s){
 			$this->db->or_where('tb_order.orderStatus',$s);
@@ -55,6 +58,7 @@ class Adminm extends CI_Model {
 	function getUserProfiByorderId($id){
 
 		$this->db->join('tb_facebookdetial','tb_facebookdetial.facebookdetialId = tb_order.facebookdetialId');
+		$this->db->join('tb_maillistlog','tb_maillistlog.mailId = tb_facebookdetial.mailId');
 		$this->db->or_where('tb_order.orderId',$id);
 		return $this->db->get('tb_order')->result_array();
 	}
@@ -240,6 +244,7 @@ class Adminm extends CI_Model {
 	function getorderDetialPayment($id){
 		$this->db->join('tb_order','tb_order.orderId = tb_payimg.orderId');
 		$this->db->join('tb_facebookdetial','tb_facebookdetial.facebookdetialId = tb_order.facebookdetialId');
+		$this->db->join('tb_maillistlog','tb_maillistlog.mailId = tb_facebookdetial.mailId');
 		$this->db->where('tb_order.orderId',$id);
 		$this->db->limit(1);
 		$this->db->order_by('tb_payimg.payimgId','DESC');
@@ -292,5 +297,6 @@ class Adminm extends CI_Model {
 		$this->db->limit(1);
 		$this->db->delete("tb_bankaccount");
 	}
+
 }
 ?>

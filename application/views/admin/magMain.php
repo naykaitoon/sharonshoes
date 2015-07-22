@@ -106,7 +106,7 @@ table td,th{
                                 <a href="<?php echo base_url();?>index.php/magement/waitPay" class="link"><i class="fa fa-credit-card"></i> การชำระเงิน</a>
                             </li>
                            <li>
-                                <a href="<?php echo base_url();?>index.php/magement/shipping" class="link"><i class="fa fa-share-square-o"></i> จัดส่งสินค้า</a>
+                                <a href="<?php echo base_url();?>index.php/magement/shipping" class="link"><i class="fa fa-share-square"></i> จัดส่งสินค้า</a>
                             </li>
                           <li>
                                 <a href="<?php echo base_url();?>index.php/magement/tacking" class="link"><i class="fa fa-truck"></i> Tacking</a>

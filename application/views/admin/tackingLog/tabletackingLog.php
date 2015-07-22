@@ -15,7 +15,7 @@
 								  foreach($data as $p){   ?>
                                     <tr>
                                         <td align="center" valign="middle" nowrap="nowrap" class="col-md-1">OR<?php echo $p['orderId']?></td>
-                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>e-mail : <?php echo $p['emailRegister']?></td>
+                                        <td align="left" valign="middle" nowrap="nowrap">คุณ : <?php echo $p['nameuser']?>&nbsp;&nbsp;<?php echo $p['lnameuser']?><br>e-mail : <?php echo $p['mail']?></td>
                                         <td align="left" valign="middle" nowrap="nowrap">CODE : <?php echo $p['tackCode']?><br>
 										<?php $date1 = new DateTime($p['dateTack']." ".$p['timeTack']);
 										echo "วันที่ส่ง : ".$date1->format('d/m/').($date1->format('Y')+543). "<br>เวลาที่ส่ง : ".$date1->format('H:i'); ?></td>
@@ -37,7 +37,10 @@
                                         </td>
                                       <td align="center" valign="middle" nowrap="nowrap" class="col-md-1">
    <button type="button" class="btn btn-primary btn-xs detialList" data-toggle="modal" data-target="#detial" value="<?php echo $p['orderId']?>"><i class="glyphicon glyphicon-info-sign"></i> รายการสินค้า</button>
+   <a href="http://emsbot.com/#/?s=<?php echo $p['tackCode']?>" target="new" >
+   <button type="button" class="btn btn-success btn-xs" value="<?php echo $p['orderId']?>"><i class="glyphicon glyphicon-eye-open"></i> Tacking</button></a>
    </td>
+   									
                                     </tr>
                                     <?php  }}else{ ?>
                                 <tr>

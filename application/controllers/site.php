@@ -4,33 +4,55 @@ class Site extends CI_Controller {
     function __construct(){
 	   parent::__construct();
 	   require 'sdk/facebook.php';
+	     $facebook = new Facebook(array(
+				  'appId'  => '1458199551164642',
+				  'secret' => 'c85e0bc13252f28f0f27a8b0e88e7dc2',
+				));
+	   if(isset($_GET)){
+
+		   if(isset($_GET['code']) AND $_GET['code']){
+			 
+				
+				$user = $facebook->getUser();
+			
+					
+				if ($user) {
+				  try {
+					$user_profile = $facebook->api('/me');
+					$datas['user_profile'] = $user_profile;
+					$lo = $this->SiteModel->loginUserFb($user_profile['id']);
+				
+						//	var_dump($lo,$user_profile);
+						
+					if($lo){
+							$this->session->set_userdata("loginDataUser",$lo);
+							echo "<script>window.location.href ='".base_url()."index.php/verifiedEmail/login';</script>";
+					}else{
+							echo "<script>window.location.href ='".base_url()."index.php/site/logins?error=notRegister';</script>";
+							exit;
+					}
+							
+				  } catch (FacebookApiException $e) {
+				
+					$user = NULL;
+				  }
+				  
+				}
+
+			
+				
+		   }
+	   }else{
+	   	$facebook->destroySession();
+	   }
+			
     }
 	
-	function index($lang = "th",$script="")
+	function index($lang = "th")
 	{	
-
-		if($lang=="th"){
-			$l = "th";
-			$datas['select'] = "th";
-		}else if($lang=="en"){
-			$l = "en";
-			$datas['select'] = "en";
-		}else{
-			$l = "en";
-			$datas['select'] = "en";
-		}
-		$this->session->set_userdata("lag",$l);
-		$data = $this->SiteModel->getLang($l);
-	
-		foreach($data as $d){
-			$datas[$d['type']] = $d['text'];
-			if($d['size']>0){
-				$datas[$d['type']."size"] = 'style="font-size:'.$d['size'].'px;"';
-			}else{
-				$datas[$d['type']."size"] = '';
-			}
-		}
-		$datas['types'] = $this->SiteModel->getAlltypeCountProduct();
+		 $this->loadheader($lang);
+		
+				$datas['types'] = $this->SiteModel->getAlltypeCountProduct();
 
 		$d = $this->SiteModel->getTypeAll();
 		$newProduct = array();
@@ -53,8 +75,56 @@ class Site extends CI_Controller {
 		}
 		$datas['products'] = $newProduct;
 		shuffle($datas['products']);
-		$datas['script'] = $script;
 		
+		$this->loadContentFooter($datas,"WebHomesite","home/footerHeader");
+		
+	}
+	function logins($lang="th"){
+
+		
+		$this->loadheader($lang);
+		if($lang=="th"){
+			$l = "th";
+			$datas['select'] = "th";
+		}else if($lang=="en"){
+			$l = "en";
+			$datas['select'] = "en";
+		}else{
+			$l = "en";
+			$datas['select'] = "en";
+		}
+		$this->session->set_userdata("lag",$l);
+		$data = $this->SiteModel->getLang($l);
+
+		
+	
+		$this->loadContentFooter($datas,"login","home/loginHeader");
+
+	}
+	
+	function loadheader($lang){
+		
+				if($lang=="th"){
+			$l = "th";
+			$datas['select'] = "th";
+		}else if($lang=="en"){
+			$l = "en";
+			$datas['select'] = "en";
+		}else{
+			$l = "en";
+			$datas['select'] = "en";
+		}
+		$this->session->set_userdata("lag",$l);
+		$data = $this->SiteModel->getLang($l);
+	
+		foreach($data as $d){
+			$datas[$d['type']] = $d['text'];
+			if($d['size']>0){
+				$datas[$d['type']."size"] = 'style="font-size:'.$d['size'].'px;"';
+			}else{
+				$datas[$d['type']."size"] = '';
+			}
+		}
 		///////////////////////////   fb /////////////////////////////////////
 		
 		$facebook = new Facebook(array(
@@ -75,7 +145,7 @@ class Site extends CI_Controller {
 		  }
 		}		
 		if ($user) {
-		  $logoutUrl = $facebook->getLogoutUrl();
+		  $logoutUrl = $facebook->getLoginUrl();
 		  $datas['fbbtUrl'] = $logoutUrl;
 		  $datas['faLoginStatus'] = "yes";
 		  $datas['user'] = $user;
@@ -85,14 +155,13 @@ class Site extends CI_Controller {
 		   $datas['fbbtUrl'] = $loginUrl;
 		    $datas['faLoginStatus'] = "no";
 		}
-		
-	
-			///////////////////////////  end fb /////////////////////////////////////
-
-		$this->load->view('WebHomesite',$datas);
-		
+		$this->load->view('home/homeHeader',$datas);
 	}
-	
+	function loadContentFooter($datas,$view,$footerVew){
+		
+		$this->load->view($view,$datas);
+		$this->load->view($footerVew,$datas);
+	}
 	function fbLogout(){
 	
 		$facebook = new Facebook(array(
@@ -102,133 +171,16 @@ class Site extends CI_Controller {
 	$facebook->destroySession();
 		echo "<script>window.location.href ='".base_url()."';</script>";
 	}
-	function page($page=""){
-		
-		$lag =$this->session->userdata("lag");
-
-		$script = '$("#loadinfo").load("'.base_url().'index.php/site/'.$page.'");
 	
-		$("#portfolio").ScrollTo({
-   			 duration: 2000,
-   			 easing: "linear"
-		});
-		';
-		$this->index($lag,$script);
-	}
-	
-	function register(){
-		$this->load->view('register');
-	}
-	function login($lang="th"){
-
-		
-		
-		if($lang=="th"){
-			$l = "th";
-			$datas['select'] = "th";
-		}else if($lang=="en"){
-			$l = "en";
-			$datas['select'] = "en";
-		}else{
-			$l = "en";
-			$datas['select'] = "en";
-		}
-		$this->session->set_userdata("lag",$l);
-		$data = $this->SiteModel->getLang($l);
-	
-		foreach($data as $d){
-			$datas[$d['type']] = $d['text'];
-			if($d['size']>0){
-				$datas[$d['type']."size"] = 'style="font-size:'.$d['size'].'px;"';
-			}else{
-				$datas[$d['type']."size"] = '';
-			}
-		}
-		$datas['types'] = $this->SiteModel->getAlltypeCountProduct();
-
-		$d = $this->SiteModel->getTypeAll();
-		$newProduct = array();
-		$datas['sumAll'] = 0;
-		$i = 0;
-		foreach($d as $t){
-			$newp = $this->SiteModel->getProductByType($t['typeId']);
-			$sum = 0;
-				foreach($newp as $np){
-						
-						array_push($newProduct,$np);
-						$sum++;
-						$datas['sumAll'] = $datas['sumAll']+1;
-				}
-			
-	
-	
-			$i++;
-			
-		}
-		$datas['products'] = $newProduct;
-		shuffle($datas['products']);
-
-		
-		///////////////////////////   fb /////////////////////////////////////
-		
-		$facebook = new Facebook(array(
+	function getDetialProduct($porductId){
+			$facebook = new Facebook(array(
 		  'appId'  => '1458199551164642',
 		  'secret' => 'c85e0bc13252f28f0f27a8b0e88e7dc2',
 		));
 		
 		$user = $facebook->getUser();
-
-		if ($user) {
-		  try {
-			$user_profile = $facebook->api('/me');
-			$datas['user_profile'] = $user_profile;
-			
-			
-		  } catch (FacebookApiException $e) {
-		
-			$user = NULL;
-		  }
-		}		
-		if ($user) {
-		  $logoutUrl = $facebook->getLogoutUrl();
-		  $datas['fbbtUrl'] = $logoutUrl;
-		  $datas['faLoginStatus'] = "yes";
-		  $datas['user'] = $user;
-		  	if(!$_GET['code']){
-					$data['FACEBOOK_ID'] = $user_profile["id"];
-					$data['NAME'] =  $user_profile["name"];
-					$data['LINK'] =	$user_profile["link"];
-					$data['CREATE_DATE'] = 	date("Y-m-d H:i:s");
-					$this->SiteModel->register($data);
-					
-					
-				 	$this->load->view('addNewUser',$datas);
-				}else{
-					echo "<script>window.location.href='".base_url()."'</script>";
-				}
-		  
-		} else {
-		  $loginUrl = $facebook->getLoginUrl();
-		   $datas['fbbtUrl'] = $loginUrl;
-		    $datas['faLoginStatus'] = "no";
-		}
-		
-			$this->load->view('login',$datas);
-
-
-
-		
-
-	}
-	function profile(){
-			$this->load->view('profile');		
-	}
-	
-	function addNewUser(){
-			$this->load->view('addNewUser');		
-	}
-
-	function getDetialProduct($porductId){
+		$loginUrl = $facebook->getLoginUrl();
+		$data['fbbtUrl'] = $loginUrl;
 			$data['size'] = $this->SiteModel->getAllsizePro($porductId);
 				$data['detial'] = $this->SiteModel->getProductDetialAll($porductId);
 		$i=0;
@@ -241,7 +193,7 @@ class Site extends CI_Controller {
 		}
 
 		$data['titledetial'] = $this->SiteModel->getCurrentImg($porductId);
-		$this->load->view('productDetial',$data);
+		$this->load->view('home/productDetial',$data);
 	}
 	
 	function getColorProduct(){
@@ -258,79 +210,12 @@ class Site extends CI_Controller {
 		}
 	}
 	
-	function buyItem(){
-		$sizeId = $this->input->post('sizeId');
-		$colorId = $this->input->post('colorId');
-		$valueNum = $this->input->post('valueNum');
-		$productId = $this->input->post('productId');
-
-		$addData = array();
-		$data = $this->session->userdata("buy");
-		if($productId){
-			if(!$data){
-				$p['productId']=$productId;
-				$p['sizeId']=$sizeId;
-				$p['colorId']=$colorId;
-				$p['valueNum']=$valueNum;
-				 array_push($addData,$p);
-	
-				$this->session->set_userdata("buy",$addData);
-			}else{
-				
-				$p['productId']=$productId;
-				$p['sizeId']=$sizeId;
-				$p['colorId']=$colorId;
-				$p['valueNum']=$valueNum;
-				 array_push($data,$p);
-	
-				$this->session->set_userdata("buy",$data);
-				
-			}
-			$d = $this->session->userdata("buy");
-
-		}
-		
-	}
-	
-	function countBuyitem(){
-		$data = $this->session->userdata("buy");
-		if($data!=FALSE){
-			echo "<small><strong>".count($data)."</strong></small>";
-		}else{
-			echo "";
-		}
-		
-	}
-	
-	function getAllBuy(){
-		$data = $this->session->userdata("buy");
-		$sent = array();
-		$sum = 0;
-		if($data){
-		foreach($data as $d){
-			$getData = $this->SiteModel->getProductOrder($d);
-			
-			$getData[0]['value'] = $d['valueNum'];
-			array_push($sent,$getData[0]);
-			$sum=$sum+($d['valueNum']*$getData[0]['productPrice']);
-			
-		}
-		}else{
-			$sent = FALSE;
-		}
-		$alldata['sum'] = $sum;
-		$alldata['product'] = $sent;
-		$this->load->view('order',$alldata);
-	}
-	
-	function un(){
-		$this->session->unset_userdata("buy");
-	}
-	
 	function sentMail(){
 			$email =$this->input->post('email');
+			
 		try{
-	
+	$dataEmail = $this->SiteModel->getEmailReplete($email);
+			if(!$dataEmail){
 		$config = array(
 		'protocol' => 'smtp',
 		'smtp_host' => 'mail.sharonshoes.com',
@@ -356,13 +241,16 @@ class Site extends CI_Controller {
 
         $this->email->subject("การลงทะเบียนยืนยัน email To sharonshoes.com");
 	
-		$mass = "<br><a href='".base_url()."index.php/active/code/".$data['codeActice']."'>คลิกที่นี้</a>  ยืนยัน";
+		$mass = "<br><a href='".base_url()."index.php/verifiedEmail/code/".$data['codeActice']."'>คลิกที่นี้</a>  ยืนยัน";
         $this->email->message($mass);  
 
         $this->email->send();
 
 		$this->db->insert('tb_maillistlog',$data);
 			echo '<div class="alert alert-success" role="alert">Sent Complete กรุณาเช็ค Email เพื่อนยืนยัน</div>';
+			}else if($email){
+				echo '<div class="alert alert-danger" role="alert">E-mail นี้ ถูกใช้งานไปแล้ว กรุณาใช้ Email อื่น ในการลงทะเบียน</div>';
+			}
 		}catch (Exception $e){
 			echo '<div class="alert alert-danger" role="alert">Caught exception: ',  $e->getMessage(), "</div>";
 		}
@@ -379,6 +267,19 @@ class Site extends CI_Controller {
 			echo "ไม่พบรูปภาพอยู่ในระบบ หรืออาจเสียหาย";
 		}
 	
+	}
+	
+	function VerifiedAcco(){
+
+		$emaillogin = $this->input->post("emaillogin");
+		$passlogin = $this->input->post("passlogin");
+		$dataLogin = $this->SiteModel->loginUser($emaillogin,$passlogin);
+		if($dataLogin){
+			$this->session->set_userdata("loginDataUser",$dataLogin);
+			echo "<script>window.location.href ='".base_url()."index.php/verifiedEmail/login';</script>";
+		}else{
+			echo "<script>window.location.href ='".base_url()."index.php/site/logins?error=nouser';</script>";
+		}
 	}
 	
 	

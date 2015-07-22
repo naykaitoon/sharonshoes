@@ -1,52 +1,39 @@
-
-		<section id="portfolio" class="module">
-
-			<div class="container" id="loadinfo">
-
-						<form class="form-horizontal" method="post" action="<?php echo  base_url() ?>index.php/site/VerifiedAcco">
+			<form class="form-horizontal">
   <div class="form-group col-sm-offset-6 col-md-12">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">อีเมล</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" name="emaillogin" placeholder="Email">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label"  >รหัสผ่าน</label>
+    <label for="inputPassword3" class="col-sm-2 control-label">รหัสผ่าน</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" name="passlogin" placeholder="Password">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
     </div>
   </div>
     <div class="form-group">
   <div class="col-sm-10 col-sm-offset-2">
- 
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Remember Me
+    </label>
+  </div>
   </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary outline"> Sign in</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo $fbbtUrl;?>"><img src="<?php echo  base_url() ?>img/fblogin.png" width="200" id="loginbt"  /></a>
+      <button type="button" class="btn btn-primary outline" onClick="alert('Coming Soon!'); return false;"> Sign in</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo $fbbtUrl;?>"><img src="<?php echo  base_url() ?>img/fblogin.png" width="200" id="loginbt"  /></a>
    
     </div>
-    <?php
-	$uu = 0;
-	 if($_GET){
-				if( isset($_GET['error']) AND $_GET['error']=="nouser"){
-		?>
-    		
-      <center><div class="alert alert-danger" role="alert">ไม่พบ ผู้ใช้งานอยู่ในระบบ</div></center>
-      <?php 
-				}else if( isset($_GET['error']) AND $_GET['error']=="notlogin"){ ?>
-				      <center><div class="alert alert-danger" role="alert">กรูณาล็อกอินก่อนใช้งาน</div></center>
-			<?php	}else if( isset($_GET['error']) AND $_GET['error']=="notRegister"){ $uu=1; ?>
-            <center><div class="alert alert-warning" role="alert">กรุณา ลงทะเบียน และยืนยัน E-mail ก่อน Login ผ่าน Facebook</div></center>
-	  <?php }}?>
+      
      <div class="col-sm-offset-0 col-sm-10">
       <hr>
         <div class="row col-md-offset-2 col-md-12">
     <button type="button" class="btn btn-default" id="registerbt">Register</button>
      </div>
      <br>
-    <div class="row col-md-12" id="registerbox"  <?php if( $uu==0){?>style="display:none" <?php }?> >
+    <div class="row col-md-12" id="registerbox" >
 
     <div class="row">
      <button type="button" class="btn btn-xs btn-primary  pull-right" id="sweet" style="margin-right:200px;color:#000;"><i class="glyphicon glyphicon-retweet"></i> switch</button>
@@ -56,7 +43,7 @@
     <label for="inputEmail3" class="col-sm-2 control-label"  for="inputEmail3">E-mail</label>
     <div class="col-sm-3-offset-2 col-sm-10">
      <div class="input-group" id="inputGroupSuccess2Status" style="float:left;word-wrap:break-word;"> 
-     <input type="email" class="form-control col-sm-4" id="inputEmail33" placeholder="Email" >
+     <input type="email" class="form-control" id="inputEmail33" placeholder="Email" >
         <span class="input-group-addon">@</span> 
         <select class="form-control col-sm-3-offset-5 mailserver"  aria-describedby="inputGroupSuccess2Status" style="width:200px;">
               <option value="@hotmail.com">hotmail.com</option>
@@ -89,10 +76,53 @@
 
   </div>
 </form>
+ <script>
 
-			</div>
 
-		</section>
-		<!-- /PORTFOLIO -->
+    $("#registerbox").hide();
+	$("#ea").hide();
+$("#registerbt").click(function(e) {
+		$("#registerbox").toggle(800);
+});
+$(".mailserver").change(function(e) {
 
+	if($(this).val()=="Other"){
+		
+		$(".mailserver").hide();
+
+		$("#ea").show();
+
+	}else{
+		$(".mailserver").show();
+		
+		$("#ea").hide();
+
+	}
+});
+$("#sweet").click(function(e) {
 	
+	 $(".mailserver,#ea").toggle();
+
+});
+
+$("#sent").click(function(e) {
+	e.preventDefault();
+	var mail = "";
+	var realmail = "";
+	if($(".mailserver").val()=="Other"){
+		mail = "@"+$("#ea").val(); 
+	}else{
+		mail = $(".mailserver").val();
+	}
+	realmail = $("#inputEmail33").val()+mail;
+    	$.post( "<?php echo base_url();?>index.php/site/sentMail", { 
+	email: realmail
+
+	}).done(function( data ) {
+		$("#resultSent").html(data);
+		$(this).hide();
+		
+  });
+});
+
+</script>
